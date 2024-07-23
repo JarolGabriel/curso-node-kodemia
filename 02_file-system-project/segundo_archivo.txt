@@ -1,2 +1,0 @@
-este es un ejemplo de como leer un archivo con readFileeste contenido es nuevo para sobre escribir el anterioreste contenido es nuevo para sobre escribir el anterioreste contenido es nuevo para sobre escribir el anterioreste contenido es nuevo para sobre escribir el anterioreste contenido es nuevo para sobre escribir el anterior
-este contenido es nuevo para sobre escribir el anterior
