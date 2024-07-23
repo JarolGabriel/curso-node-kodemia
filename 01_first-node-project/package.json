@@ -1,0 +1,22 @@
+{
+  "name": "01_first-node-project",
+  "version": "1.0.0",
+  "description": "This is my first node project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "jarol": "acho 'hola jarol'",
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "keywords": [
+    "learn",
+    "kodemia",
+    "node"
+  ],
+  "author": "@jarolGabriel",
+  "license": "ISC",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
