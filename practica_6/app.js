@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-let patch = "./ususarios.json";
+let path = "./usuarios.json";
 
 const args = process.argv.slice(2);
 console.log(process.argv);
@@ -8,8 +8,8 @@ const command = args[0];
 const userName = args[1];
 
 function leerUsuarios() {
-  if (fs.existsSync(patch)) {
-    const data = fs.readFileSync(patch, "utf-8");
+  if (fs.existsSync(path)) {
+    const data = fs.readFileSync(path, "utf-8");
     return JSON.parse(data);
   } else {
     return [];
@@ -17,7 +17,7 @@ function leerUsuarios() {
 }
 
 function escribirUsuarios(usuarios) {
-  fs.writeFileSync(patch, JSON.stringify(usuarios, null, 2), "utf-8");
+  fs.writeFileSync(path, JSON.stringify(usuarios, null, 2), "utf-8");
 }
 
 switch (command) {
