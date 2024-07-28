@@ -1,0 +1,15 @@
+{
+  "name": "practica_7",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "Jarol",
+  "license": "ISC",
+  "description": "practice number 7. Create a server",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
