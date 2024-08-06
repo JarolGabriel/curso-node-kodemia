@@ -1,23 +1,23 @@
-const { error } = require("console");
-const fs = require("fs");
+const fs = require("node:fs");
+
 const dbName = "db.json";
 
+const initialData = {
+  koders: [],
+  mentors: [],
+  generations: [],
+};
+
 function initialize() {
-  const exist = fs.existsSync(dbName);
-  if (!exist) {
-    fs.writeFileSync(
-      dbName,
-      JSON.stringify({
-        koders: [],
-        mentors: [],
-        generation: [],
-      })
-    );
+  const exists = fs.existsSync(dbName);
+
+  if (!exists) {
+    fs.writeFileSync(dbName, JSON.stringify(initialData));
   }
 }
 
 function read(key) {
-  const content = fs.readFileSync(dbName, "utf-8");
+  const content = fs.readFileSync(dbName, "utf8");
   const json = JSON.parse(content);
 
   if (key) {
@@ -27,15 +27,28 @@ function read(key) {
   return json;
 }
 
-function save(key, newDate) {
-  const content = fs.readFileSync(dbName, "utf-8");
+function save(key, newData) {
+  const content = fs.readFileSync(dbName, "utf8");
   const json = JSON.parse(content);
+  const validKeys = Object.keys(initialData);
 
-  if (key && typeof key === "string") {
-    json[key] = newDate;
-  } else {
-    throw new error("key is required and should be a string");
+  if (!key) {
+    throw new Error("key is required");
   }
+
+  if (!validKeys.includes(key)) {
+    throw new Error("key should be one of: " + validKeys.join(", "));
+  }
+
+  if (!newData) {
+    throw new Error("newData is required");
+  }
+
+  if (!Array.isArray(newData)) {
+    throw new Error("newData should be an array");
+  }
+
+  json[key] = newData;
 
   fs.writeFileSync(dbName, JSON.stringify(json));
 
