@@ -1,8 +1,10 @@
-const Koder = require("../models/koders.models");
+const createError = require("http-errors");
+
+const Koder = require("../models/koder.model");
 
 async function create(data) {
-  const newKoders = await Koder.create(data);
-  return newKoders;
+  const newKoder = await Koder.create(data);
+  return newKoder;
 }
 
 async function getAll() {
@@ -15,20 +17,32 @@ async function getById(id) {
   return koder;
 }
 
-async function update(id, newData) {
+async function updateById(id, newData) {
+  const koderFound = await Koder.findById(id);
+
+  if (!koderFound) {
+    throw createError(404, "Koder not found");
+  }
+
   const koder = await Koder.findByIdAndUpdate(id, newData, { new: true });
   return koder;
 }
 
 async function deleteById(id) {
-  const deleteKoder = await Koder.findByIdAndDelete(id);
-  return deleteKoder;
+  const koderFound = await Koder.findById(id);
+
+  if (!koderFound) {
+    throw createError(404, "Koder not found");
+  }
+
+  const deletedKoder = await Koder.findByIdAndDelete(id);
+  return deletedKoder;
 }
 
 module.exports = {
   create,
   getAll,
   getById,
-  update,
+  updateById,
   deleteById,
 };

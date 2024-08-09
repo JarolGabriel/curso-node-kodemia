@@ -1,4 +1,3 @@
-// llamando a dotenv para la seguridad
 require("dotenv").config();
 
 const server = require("./src/server");
@@ -8,11 +7,13 @@ const port = 8080;
 
 db.connect()
   .then(() => {
-    console.log("db connected");
+    console.log("DB connected");
+
     server.listen(port, () => {
       console.log("Server is running on port", port);
     });
   })
   .catch((error) => {
-    console.error("DB conection error", error);
+    console.error("DB connection error:", error);
+    process.exit(1);
   });

@@ -1,18 +1,18 @@
-const KodersUsecase = require("../usecases/koders.usecase");
+const kodersUseCase = require("../usecases/koders.usecases");
 const getArgValue = require("../lib/getArgValue");
 
 async function add() {
-  const firstName = getArg("firstName");
-  const lastName = getArg("lastName");
-  const email = getArg("email");
+  const firstName = getArgValue("firstName");
+  const lastName = getArgValue("lastName");
+  const email = getArgValue("email");
 
-  const newKoder = await KodersUsecase.create({
+  const newKoder = await kodersUseCase.create({
     firstName,
     lastName,
     email,
   });
 
-  console.log("====== koders create====");
+  console.log("-- Koder created --");
   console.log(newKoder);
   process.exit(0);
 }
@@ -20,15 +20,15 @@ async function add() {
 async function rm() {
   const id = getArgValue("id");
 
-  const kodersdelete = await KodersUsecase.deleteById(id);
+  const koderDeleted = await kodersUseCase.deleteById(id);
 
-  console.log("====== koders delete ====");
-  console.log(kodersdelete);
+  console.log("-- Koder deleted --");
+  console.log(koderDeleted);
   process.exit(0);
 }
 
 async function ls() {
-  const koders = await KodersUsecase.getAll();
+  const koders = await kodersUseCase.getAll();
   console.log(koders);
   process.exit(0);
 }

@@ -1,17 +1,17 @@
 const express = require("express");
-const kodersUsecases = require("../usecases/koders.usecase");
-const createError = require("http-errors");
+
+const mentorsUseCase = require("../usecases/mentors.usecases");
 
 const router = express.Router();
 
 router.get("/", async (request, response) => {
   try {
-    const koders = await kodersUsecases.getAll();
+    const mentors = await mentorsUseCase.getAll();
 
     response.json({
       success: true,
-      message: "all koders",
-      data: { koders },
+      message: "All mentors",
+      data: { mentors },
     });
   } catch (error) {
     response.status(error.status || 500);
@@ -22,19 +22,16 @@ router.get("/", async (request, response) => {
   }
 });
 
-router.get("/id", async (request, response) => {
+router.get("/:id", async (request, response) => {
   try {
     const id = request.params.id;
-    const koders = await kodersUsecases.getById(id);
 
-    if (!koders) {
-      throw createError(404, "koders not found");
-    }
+    const mentor = await mentorsUseCase.getById(id);
 
     response.json({
       success: true,
-      message: "koders by id",
-      data: { koders },
+      message: "Mentor found",
+      data: { mentor },
     });
   } catch (error) {
     response.status(error.status || 500);
@@ -47,13 +44,14 @@ router.get("/id", async (request, response) => {
 
 router.post("/", async (request, response) => {
   try {
-    const kodersData = request.body;
-    const newKoders = await kodersUsecases.create(kodersData);
+    const data = request.body;
+
+    const mentor = await mentorsUseCase.create(data);
 
     response.json({
       success: true,
-      message: "koders by id",
-      data: { koder: newKoders },
+      message: "Mentor created",
+      data: { mentor },
     });
   } catch (error) {
     response.status(error.status || 500);
@@ -67,14 +65,14 @@ router.post("/", async (request, response) => {
 router.patch("/:id", async (request, response) => {
   try {
     const id = request.params.id;
-    const kodersData = request.body;
+    const data = request.body;
 
-    const newKoders = await kodersUsecases.create(kodersData);
+    const mentor = await mentorsUseCase.updateById(id, data);
 
     response.json({
       success: true,
-      message: "koders by id",
-      data: { koder: newKoders },
+      message: "Mentor updated",
+      data: { mentor },
     });
   } catch (error) {
     response.status(error.status || 500);
@@ -88,13 +86,13 @@ router.patch("/:id", async (request, response) => {
 router.delete("/:id", async (request, response) => {
   try {
     const id = request.params.id;
-    const kodersData = request.body;
 
-    const newKoders = await kodersUsecases.create(kodersData);
+    const mentor = await mentorsUseCase.deleteById(id);
+
     response.json({
       success: true,
-      message: "koders by id",
-      data: { koder: newKoders },
+      message: "Mentor deleted",
+      data: { mentor },
     });
   } catch (error) {
     response.status(error.status || 500);
